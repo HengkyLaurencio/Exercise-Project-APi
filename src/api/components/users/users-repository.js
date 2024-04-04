@@ -62,10 +62,20 @@ async function deleteUser(id) {
   return User.deleteOne({ _id: id });
 }
 
+/**
+ * Find a user by email
+ * @param {string} email - User email
+ * @returns {Promise}
+ */
+async function getUserByEmail(email) {
+  return User.find({ email: email });
+}
+
 module.exports = {
   getUsers,
   getUser,
   createUser,
   updateUser,
   deleteUser,
+  getUserByEmail,
 };
