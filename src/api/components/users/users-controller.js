@@ -53,7 +53,10 @@ async function createUser(request, response, next) {
 
     const emailIsValid = await usersService.checkEmail(email);
     if (!emailIsValid) {
-      throw errorResponder(errorTypes.EMAIL_ALREADY_TAKEN);
+      throw errorResponder(
+        errorTypes.EMAIL_ALREADY_TAKEN,
+        'Email already exist'
+      );
     }
 
     const success = await usersService.createUser(name, email, password);
