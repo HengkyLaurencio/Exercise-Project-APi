@@ -68,7 +68,7 @@ async function deleteUser(id) {
  * @returns {Promise}
  */
 async function getUserByEmail(email) {
-  return User.find({ email: email });
+  return User.findOne({ email: email });
 }
 
 module.exports = {
