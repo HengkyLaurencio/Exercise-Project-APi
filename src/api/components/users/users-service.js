@@ -1,6 +1,7 @@
 const usersRepository = require('./users-repository');
 const { hashPassword } = require('../../../utils/password');
-const { equal } = require('joi');
+const { equal, func } = require('joi');
+const { passwordMatched } = require('../../../utils/password');
 
 /**
  * Get list of users
@@ -123,6 +124,28 @@ async function checkEmail(email) {
   }
 }
 
+/**
+ * Update existing user
+ * @param {string} id - User ID
+ * @param {string} password - Old Password
+ * @param {string} NewPassword - New Password
+ * @returns {boolean}
+ */
+async function changePassword(id, password, NewPassword) {
+  const user = await usersRepository.getUser(id);
+
+  const userPassword = user ? user.password : '<RANDOM_PASSWORD_FILLER>';
+  const passwordChecked = await passwordMatched(password, userPassword);
+
+  const hashedPassword = await hashPassword(NewPassword);
+
+  if (user && passwordChecked) {
+    return usersRepository.changePassword(id, hashedPassword);
+  }
+
+  return null;
+}
+
 module.exports = {
   getUsers,
   getUser,
@@ -130,4 +153,5 @@ module.exports = {
   updateUser,
   deleteUser,
   checkEmail,
+  changePassword,
 };

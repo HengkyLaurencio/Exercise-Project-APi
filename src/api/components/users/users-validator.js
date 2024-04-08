@@ -11,7 +11,7 @@ module.exports = {
         .min(6)
         .max(32)
         .required()
-        .label('Password'),
+        .label('Password Confirm'),
     },
   },
 
@@ -19,6 +19,24 @@ module.exports = {
     body: {
       name: joi.string().min(1).max(100).required().label('Name'),
       email: joi.string().email().required().label('Email'),
+    },
+  },
+
+  changePassword: {
+    body: {
+      password: joi.string().min(6).max(32).required().label('Password'),
+      password_new: joi
+        .string()
+        .min(6)
+        .max(32)
+        .required()
+        .label('Password New'),
+      password_confirm: joi
+        .string()
+        .min(6)
+        .max(32)
+        .required()
+        .label('Password Confirm'),
     },
   },
 };

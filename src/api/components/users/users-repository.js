@@ -71,6 +71,16 @@ async function getUserByEmail(email) {
   return User.findOne({ email: email });
 }
 
+/**
+ * Find a user by email
+ * @param {string} id - User ID
+ * @param {string} password - Hashed password
+ * @returns {Promise}
+ */
+async function changePassword(id, password) {
+  return User.findByIdAndUpdate(id, { password: password });
+}
+
 module.exports = {
   getUsers,
   getUser,
@@ -78,4 +88,5 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserByEmail,
+  changePassword,
 };
